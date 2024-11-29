@@ -18,10 +18,10 @@
 
    ## Pacotes usados (caso precisar instalar)
    
-   cors
-   express
-   mysql
-   axios
-   webview (npx install)
-   expo-asset
+   cors,
+   express,
+   mysql,
+   axios,
+   webview (npx install),
+   expo-asset,
    clerk
