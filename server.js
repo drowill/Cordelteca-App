@@ -28,30 +28,29 @@ app.get('/api/cordeis', (req, res) => {
   });
 });
 
+app.get('/api/recent', (req, res) => {
+  const sql = 'SELECT * FROM tb_cordeis WHERE cor_id < 11';
+  db.query(sql, (err, results) => {
+    if (err) throw err;
+    res.send(results);
+  });
+});
+
 app.get('/api/search', (req, res) => {
     const term = req.query.term;
     console.log('Search term:', term);
+    if (!term) {
+      return res.status(400).json({ message: 'Parâmetro de busca é necessário' });
+    }
     const sql = 'SELECT * FROM tb_cordeis WHERE cor_titulo LIKE ? OR cor_autor LIKE ? OR cor_capa LIKE ?';
-    db.query(sql, [`%${term}%`], (err, results) => {
+    const searchParam = `%${term}%`;
+    db.query(sql, [searchParam, searchParam, searchParam], (err, results) => {
       if (err) throw err;
       res.send(results);
       console.log('Results:', results);
     });
 });
 
-app.post('/api/login', (req, res) => {
-  const { username, password } = req.body;
-  const query = 'SELECT * FROM tb_users WHERE usr_username = ? AND usr_password = ?';
-  connection.query(query, [username, password], (error, results) => {
-    if (error) {
-      res.status(500).json({ success: false, message: 'Erro no servidor' });
-    } else if (results.length > 0) {
-      res.json({ success: true });
-    } else {
-      res.json({ success: false, message: 'Credenciais inválidas' });
-    }
-  });
-});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
