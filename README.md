@@ -1,4 +1,4 @@
-# ]Aplicativo Mobile para Cordelteca da UFRN Djalma Mota
+# Aplicativo Mobile para Cordelteca da UFRN Djalma Mota
 
 
 ## Ao clonar o projeto
